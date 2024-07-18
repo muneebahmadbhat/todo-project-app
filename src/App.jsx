@@ -9,14 +9,22 @@ function App() {
   const [todoItems, setTodoItems] = useState([]);
 
   const addButton = (itemName, itemDueDate) => {
-    const newTodoItems = [
-      ...todoItems,
-      {
-        name: itemName,
-        dueDate: itemDueDate,
-      },
-    ];
-    setTodoItems(newTodoItems);
+    // const newTodoItems = [
+    //   ...todoItems,
+    //   {
+    //     name: itemName,
+    //     dueDate: itemDueDate,
+    //   },
+    // ];
+    // setTodoItems(newTodoItems);
+
+    // Second way if the array value is too large then this way of updating is preferred
+    // also known as functional update
+
+    setTodoItems((currValue) => [
+      ...currValue,
+      { name: itemName, dueDate: itemDueDate },
+    ]);
   };
 
   const handleDeleteItem = (todoItemName) => {
