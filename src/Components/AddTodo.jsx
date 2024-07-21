@@ -1,7 +1,10 @@
-import { useRef, useState } from "react";
+import { TodoItemsContext } from "../store/todo-items-store";
+import { useRef, useContext } from "react";
 import { BiMessageAdd } from "react-icons/bi";
 
-function AddTodo({ handleAddButton }) {
+function AddTodo() {
+  const { addNewItem } = useContext(TodoItemsContext);
+
   const todoNameElement = useRef();
   const dueDateElement = useRef();
 
@@ -10,8 +13,8 @@ function AddTodo({ handleAddButton }) {
     const dueDate = dueDateElement.current.value;
     todoNameElement.current.value = "";
     dueDateElement.current.value = "";
-    console.log(`${todoName} due on: ${dueDate}`);
-    handleAddButton(todoName, dueDate);
+    // console.log(`${todoName} due on: ${dueDate}`);
+    addNewItem(todoName, dueDate);
   };
 
   return (

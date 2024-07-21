@@ -4,11 +4,12 @@ import TodoItems from "./Components/TodoItems";
 import "./App.css";
 import { useState } from "react";
 import WelcomeMessage from "./Components/WelcomeMessage";
+import { TodoItemsContext } from "./store/todo-items-store";
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
 
-  const addButton = (itemName, itemDueDate) => {
+  const addNewItem = (itemName, itemDueDate) => {
     // const newTodoItems = [
     //   ...todoItems,
     //   {
@@ -27,18 +28,26 @@ function App() {
     ]);
   };
 
-  const handleDeleteItem = (todoItemName) => {
+  const deleteItem = (todoItemName) => {
     const newTodoItems = todoItems.filter((item) => item.name !== todoItemName);
     setTodoItems(newTodoItems);
   };
 
   return (
-    <center className="todo-container">
-      <AppName />
-      <AddTodo handleAddButton={addButton} />
-      {todoItems.length === 0 && <WelcomeMessage />}
-      <TodoItems todoItems={todoItems} onDeleteClick={handleDeleteItem} />
-    </center>
+    <TodoItemsContext.Provider
+      value={{
+        todoItems: todoItems,
+        addNewItem: addNewItem,
+        deleteItem: deleteItem,
+      }}
+    >
+      <center className="todo-container">
+        <AppName />
+        <AddTodo />
+        <WelcomeMessage />
+        <TodoItems />
+      </center>
+    </TodoItemsContext.Provider>
   );
 }
 
